@@ -1,0 +1,79 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin",
+      "role": "admin",
+      "data": {
+        "nama": "Admin A",
+        "alamat": "Jl. Alamat Admin no. 999"
+      },
+      "pendidikan": [
+        {
+          "user_id": 1,
+          "jenis": "sd",
+          "nama_pendidikan": "sdn 007",
+          "order": 1
+        },
+        {
+          "user_id": 1,
+          "jenis": "smp",
+          "nama_pendidikan": "smp 007",
+          "order": 2
+        },
+        {
+          "user_id": 2,
+          "jenis": "smk",
+          "nama_pendidikan": "smk 007",
+          "order": 3
+        },
+        {
+          "user_id": 2,
+          "jenis": "s1",
+          "nama_pendidikan": "S1 Informatika Universitas 007",
+          "order": 4
+        }
+      ],
+      "organisasi": [
+        {
+          "organisasi": "Perkumpulan IT Indonesia",
+          "sebagai": "Anggota tetap"
+        },
+        {
+          "organisasi": "Perkumpulan Programmer Indonesia",
+          "sebagai": "Anggota inti"
+        }
+      ],
+      "pengalaman": [
+        {
+          "perusahaan": "Code ID",
+          "sebagai": "Frontend Developer",
+          "keterangan": "Membuat website menggunakan ReactJS"
+        },
+        {
+          "perusahaan": "Code X",
+          "sebagai": "Backend Developer",
+          "keterangan": "Membuat website menggunakan ExpressJS"
+        }
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "judul": "Judul A",
+      "deskripsi": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "image": "https://via.placeholder.com/100",
+      "user_id": 1,
+      "active": true
+    }
+  ],
+  "contact": [
+    {
+      "nama": "Nama Pengirim",
+      "no_hp": "08213123123",
+      "pesan": "Heyyyyy whats goood"
+    }
+  ]
+}
