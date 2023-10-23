@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addPost } from '../../actions/postsAction';
+import { addPost, resetInitialStatePost } from '../../actions/postsAction';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -10,7 +10,9 @@ const CreatePost = () => {
   const [deskripsi, setDeskripsi] = useState('');
   const userId = 19;
 
-  const { addPostsResult } = useSelector((state) => state.postsReducer);
+  const { addPostsResult, addPostsError } = useSelector(
+    (state) => state.postsReducer
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,7 +20,14 @@ const CreatePost = () => {
       // window.location = '/post';
       navigate('/post');
     }
-  }, [addPostsResult, dispatch, navigate]);
+
+    if (addPostsError) {
+      if (addPostsError.response.status === 401) {
+        navigate('/logout');
+        dispatch(resetInitialStatePost());
+      }
+    }
+  }, [addPostsResult, dispatch, navigate, addPostsError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

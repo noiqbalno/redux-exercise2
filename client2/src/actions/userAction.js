@@ -4,6 +4,13 @@ import Cookies from 'js-cookie';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_DETAIL_USER = 'GET_DETAIL_USER';
+export const RESET_INITIAL_STATE_USER = 'RESET_INITIAL_STATE_USER';
+
+export const resetInitialStateUser = () => {
+  return (dispatch) => {
+    dispatch({ type: RESET_INITIAL_STATE_USER });
+  };
+};
 
 export const loginUser = (data) => {
   console.log('2. masuk action');

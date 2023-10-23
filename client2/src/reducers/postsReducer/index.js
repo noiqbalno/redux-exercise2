@@ -7,6 +7,7 @@ import {
   ACTIVATE_POST,
   DEACTIVATE_POST,
   GET_ACTIVE_POSTS,
+  RESET_INITIAL_STATE_POST,
 } from '../../actions/postsAction';
 
 const initialState = {
@@ -38,6 +39,11 @@ const initialState = {
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_INITIAL_STATE_POST:
+      return {
+        ...initialState,
+      };
+
     case GET_LIST_POSTS:
       console.log('4. Masuk reduces');
       return {

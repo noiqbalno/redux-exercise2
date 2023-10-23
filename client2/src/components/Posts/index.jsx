@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {
   activatePost,
   deactivatePost,
   deletePost,
   getListPosts,
+  resetInitialStatePost,
 } from '../../actions/postsAction';
 
 const Posts = () => {
+  const navigate = useNavigate();
   const {
     getListPostsResult,
     getListPostsLoading,
@@ -17,6 +19,9 @@ const Posts = () => {
     deletePostsResult,
     activatePostsResult,
     deactivatePostsResult,
+    deletePostsError,
+    activatePostsError,
+    deactivatePostsError,
   } = useSelector((state) => state.postsReducer);
 
   const dispatch = useDispatch();
@@ -32,7 +37,37 @@ const Posts = () => {
     if (deletePostsResult || activatePostsResult || deactivatePostsResult) {
       dispatch(getListPosts());
     }
-  }, [deletePostsResult, dispatch, activatePostsResult, deactivatePostsResult]);
+
+    if (deletePostsError) {
+      if (deletePostsError.response.status === 401) {
+        navigate('/logout');
+        dispatch(resetInitialStatePost());
+      }
+    }
+
+    if (activatePostsError) {
+      if (activatePostsError.response.status === 401) {
+        navigate('/logout');
+        dispatch(resetInitialStatePost());
+      }
+    }
+
+    if (deactivatePostsError) {
+      if (deactivatePostsError.response.status === 401) {
+        navigate('/logout');
+        dispatch(resetInitialStatePost());
+      }
+    }
+  }, [
+    deletePostsResult,
+    dispatch,
+    activatePostsResult,
+    deactivatePostsResult,
+    deletePostsError,
+    activatePostsError,
+    deactivatePostsError,
+    navigate,
+  ]);
 
   const handleDelete = (id) => {
     Swal.fire({

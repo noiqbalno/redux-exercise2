@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 
 export const GET_LIST_POSTS = 'GET_LIST_POSTS';
 export const GET_ACTIVE_POSTS = 'GET_ACTIVE_POSTS';
@@ -9,6 +10,13 @@ export const GET_DETAIL_POST = 'DETAIL_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const ACTIVATE_POST = 'ACTIVATE_POST';
 export const DEACTIVATE_POST = 'DEACTIVATE_POST';
+export const RESET_INITIAL_STATE_POST = 'RESET_INITIAL_STATE_POST';
+
+export const resetInitialStatePost = () => {
+  return (dispatch) => {
+    dispatch({ type: RESET_INITIAL_STATE_POST });
+  };
+};
 
 export const getListPosts = () => {
   console.log('2. masuk action');
@@ -126,6 +134,9 @@ export const addPost = (data) => {
     axios({
       method: 'POST',
       url: `http://localhost:3500/posts`,
+      headers: {
+        Authorization: Cookies.get('accessToken'),
+      },
       timeout: 120000,
       data: data,
     })
@@ -145,14 +156,18 @@ export const addPost = (data) => {
       })
       .catch((error) => {
         //gagal get api
-        console.log('3. gagal get data: ', error.message);
-
+        console.log('3. gagal menambah data: ', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
         dispatch({
           type: ADD_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });
@@ -177,6 +192,9 @@ export const deletePost = (id) => {
     axios({
       method: 'DELETE',
       url: `http://localhost:3500/posts/${id}`,
+      headers: {
+        Authorization: Cookies.get('accessToken'),
+      },
       timeout: 120000,
     })
       .then((response) => {
@@ -195,13 +213,18 @@ export const deletePost = (id) => {
       .catch((error) => {
         //gagal get api
         console.log('3. gagal get data: ', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
 
         dispatch({
           type: DELETE_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });
@@ -244,13 +267,18 @@ export const getDetailPost = (id) => {
       .catch((error) => {
         //gagal get api
         console.log('3. gagal get data: ', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
 
         dispatch({
           type: GET_DETAIL_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });
@@ -275,6 +303,9 @@ export const updatePost = (id, data) => {
     axios({
       method: 'PUT',
       url: `http://localhost:3500/posts/${id}`,
+      headers: {
+        Authorization: Cookies.get('accessToken'),
+      },
       timeout: 120000,
       data: data,
     })
@@ -294,14 +325,19 @@ export const updatePost = (id, data) => {
       })
       .catch((error) => {
         //gagal get api
-        console.log('3. gagal get data: ', error.message);
+        console.log('3. gagal get data: ', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
 
         dispatch({
           type: UPDATE_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });
@@ -326,6 +362,9 @@ export const activatePost = (id) => {
     axios({
       method: 'PUT',
       url: `http://localhost:3500/posts/activate/${id}`,
+      headers: {
+        Authorization: Cookies.get('accessToken'),
+      },
       timeout: 120000,
     })
       .then((response) => {
@@ -344,14 +383,19 @@ export const activatePost = (id) => {
       })
       .catch((error) => {
         //gagal get api
-        console.log('3. gagal: ', error.message);
+        console.log('3. gagal: ', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
 
         dispatch({
           type: ACTIVATE_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });
@@ -376,6 +420,9 @@ export const deactivatePost = (id) => {
     axios({
       method: 'PUT',
       url: `http://localhost:3500/posts/deactivate/${id}`,
+      headers: {
+        Authorization: Cookies.get('accessToken'),
+      },
       timeout: 120000,
     })
       .then((response) => {
@@ -394,14 +441,19 @@ export const deactivatePost = (id) => {
       })
       .catch((error) => {
         //gagal get api
-        console.log('3. gagal: ', error.message);
+        console.log('3. gagal: ', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+        });
 
         dispatch({
           type: DEACTIVATE_POST,
           payload: {
             loading: false,
             data: false,
-            errorMessage: error.message,
+            errorMessage: error,
           },
         });
       });

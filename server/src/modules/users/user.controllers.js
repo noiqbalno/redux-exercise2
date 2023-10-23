@@ -173,8 +173,9 @@ export const checkToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
     next();
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(401).json({ message: error.message });
   }
 };

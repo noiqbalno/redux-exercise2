@@ -2,6 +2,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   GET_DETAIL_USER,
+  RESET_INITIAL_STATE_USER,
 } from '../../actions/userAction';
 
 const initialState = {
@@ -15,6 +16,11 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_INITIAL_STATE_USER:
+      return {
+        ...initialState,
+      };
+
     case LOGIN_USER:
       console.log('4. Masuk reduces');
       return {

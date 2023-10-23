@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { getDetailPost, updatePost } from '../../actions/postsAction';
+import {
+  getDetailPost,
+  resetInitialStatePost,
+  updatePost,
+} from '../../actions/postsAction';
 const UpdatePost = () => {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -16,6 +20,7 @@ const UpdatePost = () => {
     detailPostsLoading,
     detailPostsError,
     updatePostsResult,
+    updatePostsError,
   } = useSelector((state) => state.postsReducer);
 
   const dispatch = useDispatch();
@@ -33,7 +38,14 @@ const UpdatePost = () => {
       setImage(detailPostsResult.data.image);
       setDeskripsi(detailPostsResult.data.deskripsi);
     }
-  }, [dispatch, id, detailPostsResult]);
+
+    if (updatePostsError) {
+      if (updatePostsError.response.status === 401) {
+        navigate('/logout');
+        dispatch(resetInitialStatePost());
+      }
+    }
+  }, [dispatch, id, detailPostsResult, updatePostsError, navigate]);
 
   useEffect(() => {
     if (updatePostsResult) {

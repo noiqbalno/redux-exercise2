@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../actions/userAction';
+import { loginUser, resetInitialStateUser } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -22,9 +22,10 @@ const Login = () => {
 
   useEffect(() => {
     if (loginUserResult) {
+      dispatch(resetInitialStateUser());
       navigate('/');
     }
-  }, [loginUserResult, navigate]);
+  }, [loginUserResult, navigate, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
